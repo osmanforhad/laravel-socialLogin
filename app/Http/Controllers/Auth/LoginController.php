@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -57,7 +60,11 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('google')->user();
 
-        // $user->token;
+        $this->__registerOrLoginUser($user); //calling the __registerOrLoginUser method
+
+        //return home after login
+        return redirect()->route('home');
+
     } //end of the handleGoogleCallback method
 
     /**
@@ -103,5 +110,30 @@ class LoginController extends Controller
 
         // $user->token;
     } //end of the handleGithubCallback method
+
+    /***
+     * method for
+     *
+     * create new user
+     * and
+     *
+     * login existing user
+     */
+    protected function __registerOrLoginUser($data)
+    {
+        $user = User::where('email', '=', $data->email)->first();
+
+        if (!$user) {
+            $user = new User();
+            $user->name = $data->name;
+            $user->email = $data->email;
+            $user->provider_id = $data->id;
+            $user->avatar = $data->avatar;
+
+            $user->save();
+
+            Auth::login($user);
+        }
+    } //end of the __registerOrLoginUser method
 
 } //end of the LoginController class
