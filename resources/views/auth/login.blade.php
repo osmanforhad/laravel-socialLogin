@@ -11,11 +11,21 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                         <div class="form-group row">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            <div class="col-md-6 offset-md-3">
+                                <a href="" class="btn btn-danger btn-block">Login with Google</a>
+                                <a href="" class="btn btn-primary btn-block">Login with Facebook</a>
+                                <a href="" class="btn btn-dark btn-block">Login with Github</a>
+                            </div>
+                         </div>
+
+                         <p style="text-align:center">OR</p>
+
+                        <div class="form-group row">
+
+                            <div class="col-md-6 offset-md-3">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="E-mail Adddress">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -26,10 +36,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                            <div class="col-md-6 offset-md-3">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -40,7 +49,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-6 offset-md-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -52,7 +61,7 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-8 offset-md-0">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
